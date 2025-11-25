@@ -6,6 +6,7 @@ import type { ListProps } from './components/Form'
 import Footer from './components/Footer'
 function App() {
   const [list, setList] = useState<ListProps[]>([])
+
   const handleSendItem = (item: ListProps) => {
     setList(prev => [...prev, item])
     // 这里直接打印list不行，因为setList不会立即更新list，得在下次渲染
@@ -19,10 +20,14 @@ function App() {
   const handleClearList = () => {
     setList([])
   }
+  // 把Form添加元素的操作提升到APP组件中，有关list的操作都在APP组件里
+  function handleAddItems(item: ListProps) {
+    setList(prev => [...prev, item])
+  }
   return (
     <>
       <Logo />
-      <Form sendItem={handleSendItem} />
+      <Form onAddItems={handleAddItems} sendItem={handleSendItem} setItems={setList} />
       <TravelList list={list} onClearList={handleClearList} onChangeItem={handleChangeStatus} OnDeleteItem={handleDeleteItem} />
       <Footer list={list} />
     </>

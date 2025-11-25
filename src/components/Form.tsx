@@ -7,16 +7,24 @@ export type ListProps = {
   packed: boolean
 }
 type FormProps = {
-  sendItem: (arg: ListProps) => void
+  sendItem?: (arg: ListProps) => void
+  setItems?: React.Dispatch<React.SetStateAction<ListProps[]>>
+  onAddItems: (arg: ListProps) => void
 }
-const Form: React.FC<FormProps> = ({ sendItem }) => {
+const Form: React.FC<FormProps> = ({ onAddItems }) => {
   const bagCounts = ['1', '2', '3', '4']
   const [bagCount, setBagCount] = useState('1')
   const [content, setContent] = useState('')
+  // 把list这个提升到app上
+  //   const [list, setList] = useState<ListProps[]>([])
+  //   function handleAddItems(item: ListProps) {
+  //     setItems(prev => [...prev, item])
+  //   }
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!content) return
-    sendItem({ id: Date.now(), count: bagCount, item: content, packed: false })
+    const newItem = { id: Date.now(), count: bagCount, item: content, packed: false }
+    onAddItems(newItem)
     setContent('')
   }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
