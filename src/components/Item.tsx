@@ -1,4 +1,4 @@
-const Item = ({ item, onToggleItem, deleteItem }: any) => {
+const Item = ({ item, onToggleItem, OnDeleteItem }: any) => {
   return (
     <>
       <li>
@@ -7,7 +7,7 @@ const Item = ({ item, onToggleItem, deleteItem }: any) => {
           {item.count} {item.item}
           {item.packed}
         </span>
-        <button onClick={() => deleteItem(item.id)}>❌</button>
+        <button onClick={() => OnDeleteItem(item.id)}>❌</button>
       </li>
     </>
   )

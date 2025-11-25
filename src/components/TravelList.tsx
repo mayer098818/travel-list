@@ -4,16 +4,13 @@ import Item from './Item'
 interface TravelListProps {
   list: ListProps[]
   onChangeItem: (arg: number) => void
-  OnDeleteItem: (arg: number) => void
+  onDeleteItem: (arg: number) => void
   onClearList: () => void
 }
-const TravelList: React.FC<TravelListProps> = ({ list, onChangeItem, OnDeleteItem, onClearList }) => {
+const TravelList: React.FC<TravelListProps> = ({ list, onChangeItem, onClearList, onDeleteItem }) => {
   const [sortBy, setSortBy] = useState('input')
   function handleToggle(id: number) {
     onChangeItem(id)
-  }
-  function handleDelte(id: number) {
-    OnDeleteItem(id)
   }
   const orderList: ListProps[] = useMemo(() => {
     if (sortBy === 'description') {
@@ -27,12 +24,15 @@ const TravelList: React.FC<TravelListProps> = ({ list, onChangeItem, OnDeleteIte
       return []
     }
   }, [sortBy, list])
+  function handleDeleteItem(id: number) {
+    onDeleteItem(id)
+  }
   return (
     <>
       <div className="list" style={{ height: '300px' }}>
         <ul>
           {orderList.map(item => (
-            <Item key={item.id} item={item} onToggleItem={handleToggle} OnDeleteItem={handleDelte} />
+            <Item key={item.id} item={item} onToggleItem={handleToggle} OnDeleteItem={handleDeleteItem} />
           ))}
         </ul>
         <div className="actions">

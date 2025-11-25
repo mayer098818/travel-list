@@ -28,7 +28,7 @@ function App() {
     <>
       <Logo />
       <Form onAddItems={handleAddItems} sendItem={handleSendItem} setItems={setList} />
-      <TravelList list={list} onClearList={handleClearList} onChangeItem={handleChangeStatus} OnDeleteItem={handleDeleteItem} />
+      <TravelList list={list} onClearList={handleClearList} onChangeItem={handleChangeStatus} onDeleteItem={handleDeleteItem} />
       <Footer list={list} />
     </>
   )
